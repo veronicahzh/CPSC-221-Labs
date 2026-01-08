@@ -84,19 +84,25 @@ PNG createSpotlight(PNG image, int centerX, int centerY) {
         // which means you're changing the image directly.  No need to `set`
         // the pixel since you're directly changing the memory of the image.
         
-        double dx = centerX - x;
-        double dy = std::pow(centerY, 2);
-        double distance = std::sqrt(dx + dy);
-        double adjusted_alpha = 0.975 * pixel->a;
-        
-        //   if (distance > 200) {
-        //     adjusted_alpha = 0;
-        //   }
+        double dx = centerX - (double) x;
+        double dy = centerY - (double) y;
+        double distance = std::sqrt((dx * dx) + (dy * dy));
+        double adjusted_brightness = 1 - 0.005 * distance;
 
-        pixel->a = (unsigned char) adjusted_alpha;
+        if (distance > 200) {
+            adjusted_brightness = 0;
+        }
+        
+        double adjusted_red = adjusted_brightness * pixel->r;
+        double adjusted_green = adjusted_brightness * pixel->g;
+        double adjusted_blue = adjusted_brightness * pixel->b;
+
+        pixel->r = (unsigned char) adjusted_red;
+        pixel->g = (unsigned char) adjusted_green;
+        pixel->b = (unsigned char) adjusted_blue;
 
         }
-  }
+    }
 
     return image;
 }
