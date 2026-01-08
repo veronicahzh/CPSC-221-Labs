@@ -78,29 +78,28 @@ PNG createSpotlight(PNG image, int centerX, int centerY) {
 
     for (unsigned x = 0; x < image.width(); x++) {
         for (unsigned y = 0; y < image.height(); y++) {
-        RGBAPixel* pixel = image.getPixel(x, y);
+            RGBAPixel* pixel = image.getPixel(x, y);
 
-        // `pixel` is a pointer to the memory stored inside of the PNG `image`,
-        // which means you're changing the image directly.  No need to `set`
-        // the pixel since you're directly changing the memory of the image.
-        
-        double dx = centerX - (double) x;
-        double dy = centerY - (double) y;
-        double distance = std::sqrt((dx * dx) + (dy * dy));
-        double adjusted_brightness = 1 - 0.005 * distance;
+            // `pixel` is a pointer to the memory stored inside of the PNG `image`,
+            // which means you're changing the image directly.  No need to `set`
+            // the pixel since you're directly changing the memory of the image.
+            
+            double dx = centerX - (double) x;
+            double dy = centerY - (double) y;
+            double distance = std::sqrt((dx * dx) + (dy * dy));
+            double adjusted_brightness = 1 - 0.005 * distance;
 
-        if (distance > 200) {
-            adjusted_brightness = 0;
-        }
-        
-        double adjusted_red = adjusted_brightness * pixel->r;
-        double adjusted_green = adjusted_brightness * pixel->g;
-        double adjusted_blue = adjusted_brightness * pixel->b;
+            if (distance > 200) {
+                adjusted_brightness = 0;
+            }
+            
+            double adjusted_red = adjusted_brightness * pixel->r;
+            double adjusted_green = adjusted_brightness * pixel->g;
+            double adjusted_blue = adjusted_brightness * pixel->b;
 
-        pixel->r = (unsigned char) adjusted_red;
-        pixel->g = (unsigned char) adjusted_green;
-        pixel->b = (unsigned char) adjusted_blue;
-
+            pixel->r = (unsigned char) adjusted_red;
+            pixel->g = (unsigned char) adjusted_green;
+            pixel->b = (unsigned char) adjusted_blue;
         }
     }
 
@@ -122,7 +121,22 @@ PNG createSpotlight(PNG image, int centerX, int centerY) {
 **/
 PNG ubcify(PNG image) {
 
-  return image;
+    RGBAPixel ubcYellow = RGBAPixel(247, 184, 0);
+    RGBAPixel ubcBlue = RGBAPixel(12, 35, 68);
+
+  for (unsigned x = 0; x < image.width(); x++) {
+        for (unsigned y = 0; y < image.height(); y++) {
+            RGBAPixel* pixel = image.getPixel(x, y);
+
+            if (colordist(*pixel, ubcYellow) <= colordist(*pixel, ubcBlue)) {
+                *pixel = ubcYellow;
+            } else {
+                *pixel = ubcBlue; 
+            }
+        }
+    }
+
+    return image;
 }
 
 
