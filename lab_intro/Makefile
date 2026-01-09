@@ -4,7 +4,7 @@ OBJS = main.o PNG.o RGBAPixel.o lodepng.o lab_intro.o
 CXX = g++
 CXXFLAGS = -std=c++14 -c -g -O0 -Wall -Wextra -pedantic
 LD = g++
-LDFLAGS = -std=c++14 -lpng -lpthread -lm
+LDFLAGS = -std=c++14 -lpng -lpthread -lm -L/opt/homebrew/Cellar/libpng/1.6.53/lib
 
 all : $(EXENAME)
 
@@ -25,7 +25,6 @@ RGBAPixel.o : cs221util/RGBAPixel.cpp cs221util/RGBAPixel.h
 
 lodepng.o : cs221util/lodepng/lodepng.cpp cs221util/lodepng/lodepng.h
 	$(CXX) $(CXXFLAGS) cs221util/lodepng/lodepng.cpp
-
 
 test: basic.o PNG.o RGBAPixel.o lodepng.o lab_intro.o
 	$(LD) basic.o PNG.o RGBAPixel.o lodepng.o lab_intro.o $(LDFLAGS) -o test

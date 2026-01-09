@@ -2,7 +2,6 @@
 
 namespace cs221util {
 
-    // constructor
     RGBAPixel::RGBAPixel() {
         r = 255;
         g = 255;

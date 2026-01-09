@@ -1,5 +1,5 @@
-#ifndef RGBAPIXEL_H
-#define RGBAPIXEL_H
+#ifndef CS221UTIL_RGBAPIXEL_H
+#define CS221UTIL_RGBAPIXEL_H
 
 namespace cs221util {
     class RGBAPixel {
@@ -15,4 +15,4 @@ namespace cs221util {
     };
 }
 
-#endif
+#endif // RGBAPIXEL_H

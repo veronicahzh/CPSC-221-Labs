@@ -84,7 +84,7 @@ PNG createSpotlight(PNG image, int centerX, int centerY) {
             // which means you're changing the image directly.  No need to `set`
             // the pixel since you're directly changing the memory of the image.
             
-            double dx = centerX - (double) x;
+            double dx = centerX - static_cast<double>(x);
             double dy = centerY - (double) y;
             double distance = std::sqrt((dx * dx) + (dy * dy));
             double adjusted_brightness = 1 - 0.005 * distance;
@@ -124,17 +124,17 @@ PNG ubcify(PNG image) {
     RGBAPixel ubcYellow = RGBAPixel(247, 184, 0);
     RGBAPixel ubcBlue = RGBAPixel(12, 35, 68);
 
-  for (unsigned x = 0; x < image.width(); x++) {
-        for (unsigned y = 0; y < image.height(); y++) {
-            RGBAPixel* pixel = image.getPixel(x, y);
+    for (unsigned x = 0; x < image.width(); x++) {
+            for (unsigned y = 0; y < image.height(); y++) {
+                RGBAPixel* pixel = image.getPixel(x, y);
 
-            if (colordist(*pixel, ubcYellow) <= colordist(*pixel, ubcBlue)) {
-                *pixel = ubcYellow;
-            } else {
-                *pixel = ubcBlue; 
+                if (colordist(*pixel, ubcYellow) <= colordist(*pixel, ubcBlue)) {
+                    *pixel = ubcYellow;
+                } else {
+                    *pixel = ubcBlue; 
+                }
             }
         }
-    }
 
     return image;
 }
@@ -155,7 +155,38 @@ PNG ubcify(PNG image) {
 */
 PNG watermark(PNG firstImage, PNG secondImage) {
 
-  return firstImage;
+    for (unsigned x = 0; x < secondImage.width(); x++) {
+        for (unsigned y = 0; y < secondImage.height(); y++) {
+            RGBAPixel* secondPixel = secondImage.getPixel(x, y);
+
+            if (secondPixel->r == 255 && secondPixel->g == 255 && secondPixel->b == 255) {
+                RGBAPixel* firstPixel = firstImage.getPixel(x, y);
+
+                int adjusted_red = 40 + (int) firstPixel->r;
+                int adjusted_green = 40 + (int) firstPixel->g;
+                int adjusted_blue = 40 + (int) firstPixel->b;
+
+                if (adjusted_red > 255) {
+                    adjusted_red = 255;
+                }
+
+                if (adjusted_green > 255) {
+                    adjusted_green = 255;
+                }
+
+                if (adjusted_blue > 255) {
+                    adjusted_blue = 255;
+                }
+
+                firstPixel->r = (unsigned char) adjusted_red;
+                firstPixel->g = (unsigned char) adjusted_green;
+                firstPixel->b = (unsigned char) adjusted_blue;
+
+            }
+        }
+    }
+
+    return firstImage;
 }
 
 /**
