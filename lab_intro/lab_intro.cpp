@@ -221,3 +221,35 @@ double colordist(RGBAPixel px1, RGBAPixel px2) {
 
   return diff_r + diff_g + diff_b;
 }
+
+
+PNG stripe(PNG image) {
+    for (int x = 0; x < image.width; x++) {
+        int count = n;
+        if (count == m) {
+            for (int y = 0; y < image.height; y++) {  
+                RGBApixel* pixel = image.getpixel(x, y)
+                if (pixel->r < p) {
+                    pixel->r = 0;
+                } else {
+                    pixel->r = pixel->r - p;
+                }
+                if (pixel->g < p) {
+                    pixel->g = 0;
+                } else {
+                    pixel->g = pixel->g - p;
+                }
+                if (pixel->b < p) {
+                    pixel->b = 0;
+                } else {
+                    pixel->b = pixel->b - p;
+                }
+
+                count = 0;
+            }
+        }
+        count++;
+
+    }
+    return image;
+}
