@@ -87,7 +87,8 @@ PNG createSpotlight(PNG image, int centerX, int centerY) {
             double dx = centerX - static_cast<double>(x);
             double dy = centerY - (double) y;
             double distance = std::sqrt((dx * dx) + (dy * dy));
-            double adjusted_brightness = 1 - 0.005 * distance;
+            //double adjusted_brightness = 1 - 0.005 * distance; 
+            double adjusted_brightness = 0.975;
 
             if (distance > 200) {
                 adjusted_brightness = 0;
@@ -131,7 +132,7 @@ PNG ubcify(PNG image) {
                 if (colordist(*pixel, ubcYellow) <= colordist(*pixel, ubcBlue)) {
                     *pixel = ubcYellow;
                 } else {
-                    *pixel = ubcBlue; 
+                    *pixel = ubcBlue;
                 }
             }
         }
@@ -223,33 +224,33 @@ double colordist(RGBAPixel px1, RGBAPixel px2) {
 }
 
 
-PNG stripe(PNG image) {
-    for (int x = 0; x < image.width; x++) {
-        int count = n;
-        if (count == m) {
-            for (int y = 0; y < image.height; y++) {  
-                RGBApixel* pixel = image.getpixel(x, y)
-                if (pixel->r < p) {
-                    pixel->r = 0;
-                } else {
-                    pixel->r = pixel->r - p;
-                }
-                if (pixel->g < p) {
-                    pixel->g = 0;
-                } else {
-                    pixel->g = pixel->g - p;
-                }
-                if (pixel->b < p) {
-                    pixel->b = 0;
-                } else {
-                    pixel->b = pixel->b - p;
-                }
+// PNG stripe(PNG image) {
+//     for (int x = 0; x < image.width; x++) {
+//         int count = n;
+//         if (count == m) {
+//             for (int y = 0; y < image.height; y++) {
+//                 RGBApixel* pixel = image.getpixel(x, y)
+//                 if (pixel->r < p) {
+//                     pixel->r = 0;
+//                 } else {
+//                     pixel->r = pixel->r - p;
+//                 }
+//                 if (pixel->g < p) {
+//                     pixel->g = 0;
+//                 } else {
+//                     pixel->g = pixel->g - p;
+//                 }
+//                 if (pixel->b < p) {
+//                     pixel->b = 0;
+//                 } else {
+//                     pixel->b = pixel->b - p;
+//                 }
 
-                count = 0;
-            }
-        }
-        count++;
+//                 count = 0;
+//             }
+//         }
+//         count++;
 
-    }
-    return image;
-}
+//     }
+//     return image;
+// }
