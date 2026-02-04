@@ -34,7 +34,7 @@ namespace QuackFun {
 
         s.push(top);        // restore the og top
         return top + rest;  // result
-        
+
         // stub return value (0 for primitive types). Change this!
         // Note: T() is the default value for objects, and 0 for
         // primitive types
@@ -56,9 +56,48 @@ namespace QuackFun {
     void scramble(queue<T>& q)
     {
         stack<T> s;
-        // optional: queue<T> q2;
+        queue<T> q2;
+        int i = 0;
+        int counter = 1;
+        
+        while (!q.empty()) {
+            int numElements = std::min(counter, (int)q.size());
 
-        // Your code here
+            if (i % 2 == 0) { // if i is even
+                
+                // pop and push numElements times to Q2
+                // counter is i + 1 times
+                for(int j = 0; j < numElements; j++) {
+                    q2.push(q.front());
+                    q.pop();
+                }
+
+            } else { // if i is odd
+                
+                // pop and push numElements times TO STACK
+                // counter is i + 1 times
+                // pop and push stack to q2
+                for (int j = 0; j < numElements; j++) {
+                    // pushes counter items into stack
+                    // removes counter items from q
+                    s.push(q.front());
+                    q.pop();
+                }
+
+                while (!s.empty()) {
+                    // pushes stack items until empty
+                    // clears stack
+                    q2.push(s.top());
+                    s.pop();
+                }
+
+                
+            }
+            i++;
+            counter++;
+        }
+
+        q2.swap(q);
     }
 
     /**
