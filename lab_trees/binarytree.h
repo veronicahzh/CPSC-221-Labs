@@ -143,13 +143,16 @@ struct BinaryTree
      */
     int height(const Node* subRoot) const;
 
-    void printLeftToRight(const Node *subRoot) const;
-
-    void mirror(Node *subRoot);
     /**
      * IMPORTANT: Put your own private helper functions below this
      * comment. Look at the private helper for height as an example.
      */
+
+    void printLeftToRight(const Node *subRoot) const;
+
+    void mirror(Node *subRoot);
+
+    void printPaths(const Node *subRoot, vector<T>& path) const;
 
     /**
      * Private helper function for the public insert function.

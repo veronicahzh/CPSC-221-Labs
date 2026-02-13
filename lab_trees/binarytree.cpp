@@ -102,8 +102,30 @@ void BinaryTree<T>::mirror(Node* subRoot)
 template <typename T>
 void BinaryTree<T>::printPaths() const
 {
-  // Your code here
+    vector<T> path;
+    printPaths(root, path);
 
+}
+
+template<typename T>
+void BinaryTree<T>::printPaths(const Node* subRoot, vector<T>& path) const
+{
+    if (subRoot == nullptr) return;
+
+    path.push_back(subRoot->elem);
+
+    if (subRoot->left == nullptr && subRoot->right == nullptr) {
+        cout << "Path: ";
+        for (int elem : path) {
+            cout << elem << " ";
+        }
+        cout << endl;
+    }
+
+    printPaths(subRoot->left, path);
+    printPaths(subRoot->right, path);
+
+    path.pop_back();
 }
 
 /**
