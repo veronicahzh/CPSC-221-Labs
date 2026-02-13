@@ -154,6 +154,8 @@ struct BinaryTree
 
     void printPaths(const Node *subRoot, vector<T>& path) const;
 
+    int sumDistances(const Node *subRoot, int count) const;
+
     /**
      * Private helper function for the public insert function.
      * @param node The current node in the recursion.
