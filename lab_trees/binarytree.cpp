@@ -73,8 +73,24 @@ void BinaryTree<T>::printLeftToRight(const Node* subRoot) const
 template <typename T>
 void BinaryTree<T>::mirror()
 {
-    // Your code here
+    mirror(root);
 
+}
+
+template <typename T>
+void BinaryTree<T>::mirror(Node* subRoot)
+{
+    if (subRoot->left != nullptr) {
+        mirror(subRoot->left);
+    }
+
+    if (subRoot->right != nullptr) {
+        mirror (subRoot->right);
+    }
+
+    Node *temp = subRoot->left;
+    subRoot->left = subRoot->right;
+    subRoot->right = temp;
 }
 
 /**
