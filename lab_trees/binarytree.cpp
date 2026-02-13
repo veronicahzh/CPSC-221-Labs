@@ -5,6 +5,7 @@
  */
 
 #include <iostream>
+#include "binarytree.h"
 
 using namespace std;
 
@@ -47,10 +48,22 @@ int BinaryTree<T>::height(const Node* subRoot) const
 template <typename T>
 void BinaryTree<T>::printLeftToRight() const
 {
-    // Your code here
+    printLeftToRight(root);
 
     // Do not remove this line - used for correct print output
     cout << endl;
+}
+
+template <typename T>
+void BinaryTree<T>::printLeftToRight(const Node* subRoot) const
+{
+    if (subRoot == nullptr) {
+        return;
+    }
+
+    printLeftToRight(subRoot->left);
+    cout << to_string(subRoot->elem) << " ";
+    printLeftToRight(subRoot->right);
 }
 
 /**

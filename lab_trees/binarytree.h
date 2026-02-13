@@ -143,6 +143,7 @@ struct BinaryTree
      */
     int height(const Node* subRoot) const;
 
+    void printLeftToRight(const Node *subRoot) const;
     /**
      * IMPORTANT: Put your own private helper functions below this
      * comment. Look at the private helper for height as an example.
