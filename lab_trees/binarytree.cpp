@@ -139,8 +139,17 @@ void BinaryTree<T>::printPaths(const Node* subRoot, vector<T>& path) const
 template <typename T>
 int BinaryTree<T>::sumDistances() const
 {
-  // Your code here
-  return 0;
+    return sumDistances(root, 0);
+}
+
+template <typename T>
+int BinaryTree<T>::sumDistances(const Node* subRoot, int depth) const
+{
+    if (subRoot == nullptr) {
+        return 0;
+    }
+    
+    return depth + sumDistances(subRoot->left, depth + 1) + sumDistances(subRoot->right, depth + 1);
 }
 
 /**
