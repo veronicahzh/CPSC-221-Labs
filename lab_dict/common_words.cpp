@@ -49,7 +49,9 @@ void CommonWords::init_file_word_maps(const vector<string>& filenames)
 
         // go through all the words in the file
         /* Your code goes here! */
-
+        for (std::string word : words) {
+            if (!word.empty()) file_word_maps[i][word]++;
+        }
 
     }
 }
@@ -57,6 +59,12 @@ void CommonWords::init_file_word_maps(const vector<string>& filenames)
 void CommonWords::init_common()
 {
     /* Your code goes here!  */
+    for (auto &file : file_word_maps) { // loop vector
+        for (auto &entry : file) { // loop map
+            std::string word = entry.first;
+            common[word]++;
+        }
+    }
 
 }
 
