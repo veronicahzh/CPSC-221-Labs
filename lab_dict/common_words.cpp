@@ -77,7 +77,30 @@ vector<string> CommonWords::get_common_words(unsigned int n) const
 {
     vector<string> out;
     /* Your code goes here! */
+    unsigned int numFiles = file_word_maps.size();
+    
+    // check how many files contain the word at least once 
+    for (auto &pair : common) {
+        if (pair.second == numFiles) {
+            bool addWord = true;
 
+            for (auto &file: file_word_maps) {
+                auto lookup = file.find(pair.first);
+
+                if (lookup == file.end()) {
+                    addWord = false;
+                    break;
+                }
+
+                if (lookup->second < n) {
+                    addWord = false;
+                    break;
+                }
+            }
+
+            if (addWord) out.push_back(pair.first);
+        }
+    }
     return out;
 }
 
