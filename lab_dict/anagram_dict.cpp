@@ -50,7 +50,9 @@ AnagramDict::AnagramDict(const vector<string>& words)
 void AnagramDict::add_word_to_dict(const std::string& word)
 {
     /* Your code goes here! */
-
+    std::string key = word;
+    std::sort(key.begin(), key.end());
+    dict[key].push_back(word);
 }
 
 /**
@@ -62,9 +64,19 @@ void AnagramDict::add_word_to_dict(const std::string& word)
 vector<string> AnagramDict::get_anagrams(const string& word) const
 {
     /* Your code goes here! */
+    std::string key = word;
+    std::sort(key.begin(), key.end());
+
+    auto lookup = dict.find(key);
+    if (lookup == dict.end()) return {};
+
+    const vector<string> &candidates = lookup->second;
+    if (std::find(candidates.begin(), candidates.end(), word) == candidates.end()) return {};
+
+    if (candidates.size() < 2) return {};
 
     // Stub value - remove when you are done
-    return vector<string>();
+    return candidates;
 }
 
 /**
@@ -76,7 +88,15 @@ vector<string> AnagramDict::get_anagrams(const string& word) const
 vector<vector<string>> AnagramDict::get_all_anagrams() const
 {
     /* Your code goes here! */
+    vector<vector<string>> out;
 
+    for (const auto& words : dict) {
+        const vector<string>& group = words.second;
+        if (group.size() >= 2) {
+            out.push_back(group);
+        }
+
+    }
     // Stub value - remove when you are done
-    return vector<vector<string>>();
+    return out;
 }
