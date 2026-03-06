@@ -118,8 +118,32 @@ void AVLTree<K, V>::rebalance(Node*& subtree)
       * Case 5: the tree is already balanced. You MUST still correctly update
       * subtree's height
       */
-     
 
+    if (!subtree) return;
+    
+    int balance = height(subtree->right) - height(subtree->left);
+
+    if (balance == -2) {
+        int leftBalance = height(subtree->left->right) - height(subtree->left->left);
+
+        if (leftBalance < 0) {
+            rotateRight(subtree);            // LL
+        } else {
+            rotateLeftRight(subtree);        // LR
+        }
+    }
+
+    if (balance == 2) {
+        int rightBalance = height(subtree->right->right) - height(subtree->right->left);
+
+        if (rightBalance > 0) {
+            rotateLeft(subtree);            // RR
+        } else {
+            rotateRightLeft(subtree);       // RL
+        }
+    } else {
+        updateHeight(subtree);
+    }
 }
 
 template <class K, class V>
