@@ -5,6 +5,7 @@
  * what to do in this lab.
  */
 
+#include "avltree.h"
 template <class K, class V>
 V AVLTree<K, V>::find(const K& key) const
 {
@@ -53,7 +54,7 @@ void AVLTree<K, V>::insert(Node*& subtree, const K& key, const V& value)
 template <class K, class V>
 void AVLTree<K, V>::updateHeight(Node* node)
 {
-    // TODO: your code here
+    node->height = 1 + std::max(height(node->left), height(node->right));
 }
 
 template <class K, class V>
@@ -67,6 +68,8 @@ void AVLTree<K, V>::rotateLeft(Node*& t)
     t = newSubRoot;
 
     // TODO: update the heights for t->left and t (in that order)
+    updateHeight(t->left);
+    updateHeight(t);
 }
 
 template <class K, class V>
@@ -74,7 +77,14 @@ void AVLTree<K, V>::rotateRight(Node*& t)
 {
     *_out << __func__ << endl; // Outputs the rotation name (don't remove this)
 
-    // TODO: your code here
+    Node* newSubRoot = t->left;
+    t->left = newSubRoot->right;
+    newSubRoot->right = t;
+    t = newSubRoot;
+
+    // TODO: update the heights for t->right and t (in that order)
+    updateHeight(t->right);
+    updateHeight(t);
 }
 
 template <class K, class V>
@@ -85,6 +95,8 @@ void AVLTree<K, V>::rotateLeftRight(Node*& t)
     // TODO: your code here
     // HINT: you should make use of the other functions defined in this file,
     // instead of manually changing the pointers again
+    rotateLeft(t->left);
+    rotateRight(t);
 }
 
 template <class K, class V>
@@ -93,6 +105,8 @@ void AVLTree<K, V>::rotateRightLeft(Node*& t)
     *_out << __func__ << endl; // Outputs the rotation name (don't remove this)
 
    // TODO: your code here
+   rotateRight(t->right);
+   rotateLeft(t);
 }
 
 template <class K, class V>
@@ -104,6 +118,7 @@ void AVLTree<K, V>::rebalance(Node*& subtree)
       * Case 5: the tree is already balanced. You MUST still correctly update
       * subtree's height
       */
+     
 
 }
 

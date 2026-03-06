@@ -9,6 +9,7 @@
  */
 
 #include "printtree.h"
+#include "avltree.h"
 
 template <class K, class V>
 AVLTree<K, V>::AVLTree()
