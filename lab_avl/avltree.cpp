@@ -126,7 +126,7 @@ void AVLTree<K, V>::rebalance(Node*& subtree)
     if (balance == -2) {
         int leftBalance = height(subtree->left->right) - height(subtree->left->left);
 
-        if (leftBalance < 0) {
+        if (leftBalance <= 0) {
             rotateRight(subtree);            // LL
         } else {
             rotateLeftRight(subtree);        // LR
@@ -136,7 +136,7 @@ void AVLTree<K, V>::rebalance(Node*& subtree)
     if (balance == 2) {
         int rightBalance = height(subtree->right->right) - height(subtree->right->left);
 
-        if (rightBalance > 0) {
+        if (rightBalance >= 0) {
             rotateLeft(subtree);            // RR
         } else {
             rotateRightLeft(subtree);       // RL
@@ -177,6 +177,13 @@ void AVLTree<K, V>::remove(Node*& subtree, const K& key)
              * TODO: your code here. For testing purposes, you
              * should use the PREDECESSOR.
              */
+            Node *pred = subtree->left;
+            while(pred->right) {
+                pred = pred->right;
+            }
+
+            swap(subtree, pred);
+            remove(subtree->left, key);
 
         } else {
             /* Case 3: Node to remove has one child */
