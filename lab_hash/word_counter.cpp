@@ -1,3 +1,5 @@
+#include <iostream>
+#include "word_counter.h"
 /**
  * @file word_counter.cpp
  * Implementation of the WordFreq class.
@@ -21,6 +23,12 @@ WordFreq<Dict>::WordFreq(const string& filename) : dict(256) {
      * @todo Implement this function.
      * @see char_counter.cpp if you're having trouble.
      */
+
+     TextFile infile(filename);
+     while (infile.good()) {
+        string word = infile.getNextWord();
+        dict[word]++;
+     }
 }
 
 template <template <class K, class V> class Dict>
@@ -31,7 +39,12 @@ vector<pair<string, int>> WordFreq<Dict>::getWords(int threshold) {
      * @see char_counter.cpp if you're having trouble.
      */
 
-    (void)threshold;  // prevent warnings... When you implement this function, remove this line.
-
+    // (void)threshold;  // prevent warnings... When you implement this function, remove this line.
+    typename Dict<string, int>::iterator it;
+    for (it = dict.begin(); it != dict.end(); it++) {
+        if (it->second >= threshold) {
+          ret.push_back(*it);
+        }
+    }
     return ret;
 }

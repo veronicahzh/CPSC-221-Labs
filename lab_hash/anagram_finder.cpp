@@ -55,9 +55,22 @@ bool AnagramFinder<Dict>::checkWord(const string& word, const string& test)
      * templated hashtable class Dict.
      */
 
-    (void)word; // prevent warnings... When you implement this function, remove this line.
-    (void)test; // prevent warnings... When you implement this function, remove this line.
+    // (void)word; // prevent warnings... When you implement this function, remove this line.
+    // (void)test; // prevent warnings... When you implement this function, remove this line.
 
+    if (word.length() != test.length()) return false;
+
+    Dict<char, int> freq(256);
+
+    for (size_t i = 0; i < word.length(); i++) {
+        freq[word[i]]++;
+    }
+
+    for (size_t i = 0; i < test.length(); i++) {
+        freq[test[i]]--;
+        if (freq[test[i]] < 0) return false;
+    }
+    
     return true;
 }
 
